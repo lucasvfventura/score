@@ -1,0 +1,13 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "username": "score",
+    "password": "",
+    "database": "thescore_dev",
+    "entities": ["domain/*.ts"],
+    "migrationsTableName": "custom_migration_table",
+    "migrations": ["migration/*.ts"],
+    "cli": {
+        "migrationsDir": "migration"
+    }
+ }

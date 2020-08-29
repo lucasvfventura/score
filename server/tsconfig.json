@@ -1,13 +1,11 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "resolveJsonModule": true,
-        "moduleResolution": "Node",
-        "sourceMap": true,
-        "experimentalDecorators": true,
-        "lib": ["ESNext"]
-    },
-    "exclude": [
-        "node_modules"
-    ]
+  "compilerOptions": {
+    "target": "ESNext",
+    "resolveJsonModule": true,
+    "moduleResolution": "Node",
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "lib": ["ESNext"]
+  },
+  "exclude": ["node_modules"]
 }

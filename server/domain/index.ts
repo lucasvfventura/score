@@ -1,86 +1,86 @@
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-const INT_RE =  /\d+/
-const FLOAT_RE =  /\d+(\.\d+)?/
+const INT_RE = /\d+/;
+const FLOAT_RE = /\d+(\.\d+)?/;
 
 @Entity()
 export class PlayerStat {
-    static fromJson(obj: any): PlayerStat{
-        function converStat(value:any, re:RegExp): number{
-            if(typeof value === 'number'){
-                return value;
-            } else if(typeof value === 'string'){
-                return parseFloat(re.exec(value)[0])
-            }
-    
-            throw new Error(`Invalid data type for ${value}`);
-        } 
+  static fromJson(obj: any): PlayerStat {
+    function converStat(value: any, re: RegExp): number {
+      if (typeof value === "number") {
+        return value;
+      } else if (typeof value === "string") {
+        return parseFloat(re.exec(value)[0]);
+      }
 
-        let newPlayerStat = new PlayerStat();
-        newPlayerStat.player = `${obj.Player}`;
-        newPlayerStat.team = `${obj.Team}`;
-        newPlayerStat.position = `${obj.Pos}`;
-        newPlayerStat.attempts = converStat(obj.Att, INT_RE);
-        newPlayerStat.attempsPerGame = converStat(obj["Att/G"], FLOAT_RE);
-        newPlayerStat.totalYards = converStat(obj.Yds, INT_RE);
-        newPlayerStat.averageYards = converStat(obj.Avg, FLOAT_RE);
-        newPlayerStat.yardsPerGame = converStat(obj["Yds/G"], FLOAT_RE);
-        newPlayerStat.td = converStat(obj.TD, INT_RE);
-        newPlayerStat.longestRun = converStat(obj.Lng, INT_RE);
-        newPlayerStat.rushingFirstDowns = converStat(obj["1st"], INT_RE);
-        newPlayerStat.rushingFirstDownsPercent = converStat(obj["1st%"], FLOAT_RE);
-        newPlayerStat.rushing20 = converStat(obj["20+"], INT_RE);
-        newPlayerStat.rushing40 = converStat(obj["40+"], INT_RE);
-        newPlayerStat.fumbles = converStat(obj.FUM, INT_RE);
-
-        return newPlayerStat;
+      throw new Error(`Invalid data type for ${value}`);
     }
 
-    @PrimaryGeneratedColumn()
-    id:number;
+    let newPlayerStat = new PlayerStat();
+    newPlayerStat.player = `${obj.Player}`;
+    newPlayerStat.team = `${obj.Team}`;
+    newPlayerStat.position = `${obj.Pos}`;
+    newPlayerStat.attempts = converStat(obj.Att, INT_RE);
+    newPlayerStat.attempsPerGame = converStat(obj["Att/G"], FLOAT_RE);
+    newPlayerStat.totalYards = converStat(obj.Yds, INT_RE);
+    newPlayerStat.averageYards = converStat(obj.Avg, FLOAT_RE);
+    newPlayerStat.yardsPerGame = converStat(obj["Yds/G"], FLOAT_RE);
+    newPlayerStat.td = converStat(obj.TD, INT_RE);
+    newPlayerStat.longestRun = converStat(obj.Lng, INT_RE);
+    newPlayerStat.rushingFirstDowns = converStat(obj["1st"], INT_RE);
+    newPlayerStat.rushingFirstDownsPercent = converStat(obj["1st%"], FLOAT_RE);
+    newPlayerStat.rushing20 = converStat(obj["20+"], INT_RE);
+    newPlayerStat.rushing40 = converStat(obj["40+"], INT_RE);
+    newPlayerStat.fumbles = converStat(obj.FUM, INT_RE);
 
-    @Column({type:"varchar"})
-    player:string
+    return newPlayerStat;
+  }
 
-    @Column({type:"varchar"})
-    team:string
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({type:"varchar"})
-    position:string
+  @Column({ type: "varchar" })
+  player: string;
 
-    @Column({type: "int"})
-    attempts:number
+  @Column({ type: "varchar" })
+  team: string;
 
-    @Column({type: "decimal"})
-    attempsPerGame:number
+  @Column({ type: "varchar" })
+  position: string;
 
-    @Column({type: "int"})
-    totalYards:number
+  @Column({ type: "int" })
+  attempts: number;
 
-    @Column({type: "decimal"})
-    averageYards:number
+  @Column({ type: "decimal" })
+  attempsPerGame: number;
 
-    @Column({type: "decimal"})
-    yardsPerGame:number
+  @Column({ type: "int" })
+  totalYards: number;
 
-    @Column({type: "int"})
-    td:number
+  @Column({ type: "decimal" })
+  averageYards: number;
 
-    @Column({type: "int"})
-    longestRun:number
+  @Column({ type: "decimal" })
+  yardsPerGame: number;
 
-    @Column({type: "int"})
-    rushingFirstDowns:number
+  @Column({ type: "int" })
+  td: number;
 
-    @Column({type: "decimal"})
-    rushingFirstDownsPercent:number
+  @Column({ type: "int" })
+  longestRun: number;
 
-    @Column({type: "int"})
-    rushing20:number
+  @Column({ type: "int" })
+  rushingFirstDowns: number;
 
-    @Column({type: "int"})
-    rushing40:number
+  @Column({ type: "decimal" })
+  rushingFirstDownsPercent: number;
 
-    @Column({type: "int"})
-    fumbles:number
+  @Column({ type: "int" })
+  rushing20: number;
+
+  @Column({ type: "int" })
+  rushing40: number;
+
+  @Column({ type: "int" })
+  fumbles: number;
 }

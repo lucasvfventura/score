@@ -1,36 +1,71 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer, gql } from "apollo-server";
+import { getRepository, getConnectionOptions, createConnection } from "typeorm";
+import { resolvers } from "./resolvers";
+import { PlayerStat } from "./domain";
 
 const typeDefs = gql`
-  type Book {
-    title: String
-    author: String
+  type PlayerStat {
+    player: String
+    team: String
+    position: String
+    attempts: Int
+    attempsPerGame: Float
+    totalYards: Int
+    averageYards: Float
+    yardsPerGame: Float
+    td: Int
+    longestRun: Int
+    rushingFirstDowns: Int
+    rushingFirstDownsPercent: Float
+    rushing20: Int
+    rushing40: Int
+    fumbles: Int
+  }
+
+  enum SortDirection {
+    DESC
+    ASC
+  }
+
+  enum RecordsPerPage {
+    TWENTY
+    FIFTY
+    ONE_HUNDRED
+  }
+
+  input SortInput {
+    field: String!
+    direction: SortDirection!
   }
 
   type Query {
-    books: [Book]
+    playersStats(player: String, sorting:[SortInput!], recordsPerPage: RecordsPerPage, page: Int): [PlayerStat]
   }
 `;
 
-const books = [
-    {
-      title: 'Harry Potter and the Chamber of Secrets',
-      author: 'J.K. Rowling',
-    },
-    {
-      title: 'Jurassic Park',
-      author: 'Michael Crichton',
-    },
-  ];
+async function createServer() {
+  let connectionOptions = await getConnectionOptions();
 
-const resolvers = {
-    Query: {
-      books: () => books,
-    },
+  connectionOptions = {
+    ...connectionOptions,
+    entities: [PlayerStat],
   };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+  await createConnection(connectionOptions);
+
+  return new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: (context) => {
+      context["getRepository"] = getRepository;
+      return context;
+    },
+  });
+}
 
 // The `listen` method launches a web server.
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
+createServer().then((s) => {
+  s.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
+  });
 });

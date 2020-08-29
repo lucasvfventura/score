@@ -7,9 +7,10 @@
     "start": "dotenv -e .env -- nodemon -e ts -x ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
-    "initDB": "ts-node data-loader/index.ts"
+    "initDB": "ts-node data-loader/index.ts",
+    "format": "prettier --write ."
   },
-  "author": "",
+  "author": "Lucas V. F. Ventura",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.17.0",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "dotenv-cli": "^3.2.0",
     "nodemon": "^2.0.4",
+    "prettier": "^2.1.1",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
   }

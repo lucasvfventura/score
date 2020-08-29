@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "target": "ESNext",
+        "resolveJsonModule": true,
         "moduleResolution": "Node",
         "sourceMap": true,
         "experimentalDecorators": true,

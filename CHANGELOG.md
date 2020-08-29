@@ -5,3 +5,4 @@
     - Initial GraphQL server running
     - Initial React client running
     - Initial domain model
+    - Data loader utility

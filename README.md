@@ -3,6 +3,7 @@
 ### Requiments
 - Load data into database
     - Clean data
+        - RegExp was used to extract numeric data where strings were given
 - Search by player name
 - Sort by Total Rushing Yards, Longest Rush and Total Rushing Touchdowns
     - Multi sort or single field sorting?

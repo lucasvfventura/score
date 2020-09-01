@@ -38,8 +38,18 @@ const typeDefs = gql`
     direction: SortDirection!
   }
 
+  type PlayersStatsResponse {
+    stats: [PlayerStat]
+    count: Int!
+  }
+
   type Query {
-    playersStats(player: String, sorting:[SortInput!], recordsPerPage: RecordsPerPage, page: Int): [PlayerStat]
+    playersStats(
+      player: String
+      sorting: [SortInput!]
+      recordsPerPage: RecordsPerPage
+      page: Int
+    ): PlayersStatsResponse
   }
 `;
 

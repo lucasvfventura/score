@@ -1,5 +1,12 @@
 # Changelog
 
+## 08-31-2020
+    - Updated README for local run
+    - Added playersStats query unit test
+    - Added playerStat.fromJson unit test
+    - Added count to playersStats query response
+    - Added search UI with pagination support
+
 ## 08-29-2020
     - Added playersStats query to support search requirement, including:
         - Player name filter

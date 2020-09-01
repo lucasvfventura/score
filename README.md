@@ -1,6 +1,22 @@
 # Decision making
 
-### Requiments
+## Running it locally
+
+- Run the server
+```
+cd server 
+npm install
+npm start
+```
+
+- Run the client
+```
+cd client 
+npm install
+npm start
+```
+
+## Requiments
 - Load data into database
     - Clean data
         - RegExp was used to extract numeric data where strings were given
@@ -12,7 +28,7 @@
 - In order to acomodate a large dataset the search page needs to use pagination
     - Limits on pagination?
 
-### Techstack
+## Techstack
 I choose the stack I'm more conformatable with at the moment which is:
 
 - Backend

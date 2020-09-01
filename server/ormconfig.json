@@ -1,4 +1,6 @@
-{
+[
+  {
+    "name": "default",
     "type": "postgres",
     "host": "localhost",
     "username": "score",
@@ -8,6 +10,17 @@
     "migrationsTableName": "custom_migration_table",
     "migrations": ["migration/*.ts"],
     "cli": {
-        "migrationsDir": "migration"
+      "migrationsDir": "migration"
     }
- }
+  },
+  {
+    "name": "test",
+    "type": "postgres",
+    "host": "localhost",
+    "username": "score",
+    "password": "",
+    "database": "thescore_test",
+    "entities": ["domain/*.ts"],
+    "synchronize": true
+  }
+]

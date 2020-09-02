@@ -1,7 +1,11 @@
-import { ApolloServer, gql } from "apollo-server";
+import * as express from "express";
+import * as bodyParser from "body-parser";
+import { ApolloServer, gql } from "apollo-server-express";
 import { getRepository, getConnectionOptions, createConnection } from "typeorm";
 import { resolvers } from "./resolvers";
 import { PlayerStat } from "./domain";
+import { download } from "./routes/download";
+import * as cors from "cors";
 
 const typeDefs = gql`
   type PlayerStat {
@@ -63,7 +67,7 @@ async function createServer() {
 
   await createConnection(connectionOptions);
 
-  return new ApolloServer({
+  const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: (context) => {
@@ -71,11 +75,23 @@ async function createServer() {
       return context;
     },
   });
+
+  const app = express();
+  app.use(cors());
+
+  var jsonParser = bodyParser.json();
+
+  server.applyMiddleware({ app });
+
+  app.post("/download", jsonParser, download);
+
+  return app;
 }
 
 // The `listen` method launches a web server.
 createServer().then((s) => {
-  s.listen().then(({ url }) => {
-    console.log(`🚀  Server ready at ${url}`);
+  s.listen({ port: 4000 }, () => {
+    console.log(`🚀 Server ready at http://localhost:4000`);
+    console.log(`🚀 GraphiQL ready at http://localhost:4000/graphql`);
   });
 });

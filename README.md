@@ -1,5 +1,10 @@
 # Decision making
 
+## Running on docker
+```
+docker-compose up -d --build
+```
+
 ## Running it locally
 
 - Run the server
@@ -29,7 +34,7 @@ npm start
     - Limits on pagination?
 
 ## Techstack
-I choose the stack I'm more conformatable with at the moment which is:
+I choose the stack I'm more confortable with at the moment which is:
 
 - Backend
     - NodeJS

@@ -1,5 +1,12 @@
 # Changelog
 
+## 09-01-2020
+    - Added download route to download filtered and sorted data as csv
+    - Added download button on ui to download the data as csv
+    - Added docker-compose.yml and Dockerfile
+    - Added basic UI testing
+    - Updated README for docker run
+
 ## 08-31-2020
     - Updated README for local run
     - Added playersStats query unit test

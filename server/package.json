@@ -4,19 +4,27 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "dotenv -e .env -- nodemon -e ts -x ts-node index.ts",
+    "debug": "dotenv -e .env -- nodemon -e ts -x ts-node index.ts",
+    "start": "ts-node index.ts",
     "test": "jest",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "initDB": "ts-node data-loader/index.ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "docker": "npm run typeorm migration:run && npm run initDB && npm run start"
   },
   "author": "Lucas V. F. Ventura",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.17.0",
+    "ajv": "^6.12.4",
+    "apollo-server-express": "^2.17.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "graphql": "^15.3.0",
     "pg": "^8.3.3",
-    "typeorm": "^0.2.25"
+    "typeorm": "^0.2.25",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
@@ -24,8 +32,6 @@
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.1",
-    "ts-jest": "^26.3.0",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "ts-jest": "^26.3.0"
   }
 }

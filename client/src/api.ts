@@ -5,6 +5,7 @@ interface PlayerStatResponse {
   count: number;
   stats: IPlayerStat[];
 }
+
 export async function playerStatQuery(
   player: string | null,
   sorting: SortInput[] | null,
@@ -53,10 +54,45 @@ export async function playerStatQuery(
     }
   `;
   const { playersStats } = await request(
-    process.env.REACT_APP_ENDPOINT as string,
+    `${process.env.REACT_APP_ENDPOINT}/graphql`,
     query,
     variables
   );
 
   return playersStats;
+}
+
+export async function downloadPlayerStats(
+  player: string | null,
+  sorting: SortInput[] | null
+): Promise<void> {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_ENDPOINT}/download`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        player,
+        sorting,
+      }),
+    });
+    console.log(response);
+
+    if (response.status < 300) {
+      const blob = await response.blob();
+
+      const url = window.URL.createObjectURL(blob);
+      let a = document.createElement("a");
+      a.href = url;
+      a.download = "playerStat.csv";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } else {
+      console.log(response);
+    }
+  } catch (e) {
+    console.log(e);
+  }
 }

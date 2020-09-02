@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import { PlayerStat } from "../domain";
-import { UserInputError } from "apollo-server";
+import { UserInputError } from "apollo-server-express";
 
 export enum RecordsPerPage {
   TWENTY = "TWENTY",

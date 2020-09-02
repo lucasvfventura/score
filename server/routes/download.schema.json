@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "player": { "type": "string" },
+    "sorting": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "field": {
+              "enum": ["totalYards", "longestRun", "td"]
+            },
+            "direction": {
+              "enum": ["ASC", "DESC"]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { playerStatQuery } from "./api";
+import { playerStatQuery, downloadPlayerStats } from "./api";
 import {
   Grid,
   TextField,
@@ -36,6 +36,7 @@ function App() {
   const [players, setPlayers] = useState<IPlayerStat[]>([]);
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
   const [searching, setSearching] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
   const handleClick = (target: EventTarget & HTMLButtonElement) => {
     setAnchorEl(target);
@@ -81,6 +82,13 @@ function App() {
     }
     setSearching(false);
   }, [searching]);
+
+  useEffect(() => {
+    if (downloading) {
+      downloadPlayerStats(playerName, sorting);
+    }
+    setDownloading(false);
+  }, [downloading]);
 
   const playerView = players.map((p, i) => (
     <Grid key={i} item xs={12} lg={6}>
@@ -184,6 +192,15 @@ function App() {
               wrap="nowrap"
             >
               <Grid item>
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  onClick={() => setDownloading(true)}
+                >
+                  Download
+                </Button>
+              </Grid>
+              <Grid item>
                 <IconButton
                   disabled={page <= 1}
                   onClick={() => handlePaginationClick(page - 1)}
@@ -240,6 +257,7 @@ function App() {
                     <Button
                       size="small"
                       variant="contained"
+                      data-testid="sortByBtn"
                       onClick={(e) => handleClick(e.currentTarget)}
                     >
                       Sort by
@@ -248,12 +266,13 @@ function App() {
                   </Grid>
                   <Grid item>
                     <FormControl>
-                      <InputLabel id="demo-simple-select-label">
+                      <InputLabel id="itemPerPageLbl">
                         Items per Page
                       </InputLabel>
                       <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
+                        labelId="itemPerPageLbl"
+                        id="itemPerPage"
+                        data-testid="itemPerPage"
                         value={recordsPerPage}
                         onChange={(e) =>
                           setRecordsPerPage(e.target.value as RecordsPerPage)
@@ -272,6 +291,7 @@ function App() {
                 <Button
                   variant="contained"
                   color="primary"
+                  data-testid="searchBtn"
                   onClick={() => handleSearchClick()}
                 >
                   Search
